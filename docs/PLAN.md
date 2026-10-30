@@ -45,13 +45,13 @@ Además: fila en `perfil/proyectos.md`, entrada en `perfil/decisiones.md`, líne
 (comprar la impresora + papel hoy) y memoria del proyecto.
 
 ## Calendario
-- **26-29/10 (sin impresora)**: crear repo y estructura, esqueleto PWA, Tiras y Mejorar, función `/api/procesar` con Transcribir,
-  despliegue en Vercel y prueba de instalación en iPhone. Pedir 5-6 fotos de apuntes reales de Sara (muestras, fuera de git).
-- **~30/10 (llega la impresora)**: `PRUEBAS_IMPRESORA.md`: ancho real en px, umbral, flujo de compartir hacia Tiny Print,
-  legibilidad del texto pequeño, adherencia del papel. Ajustar parámetros.
-- **1-14/11**: Redibujar, estructuras (SMILES), tablas, pulido de UI y de velocidad (pocos clics), control de coste.
-- **15-22/11**: Sara la prueba con apuntes reales; arreglos.
-- **23-26/11**: congelar, instrucciones de 1 página para ella, icono, código de acceso; margen de 1 día.
+**Cambio del 30/10/2026 (lo pidió Arnau): la app tiene que estar acabada el domingo 1/11 a las 23:59.** Bloques en su
+calendario (eventos «Saraprints N/5»):
+- **Sáb 31/10, biblioteca**: 12:00-14:00 Vercel + límite de gasto, esqueleto PWA, Tiras y Mejorar; 18:00-19:30
+  `/api/procesar` con Transcribir, despliegue en Vercel y prueba en iPhone. Antes, el viernes 30, pedir a Sara las 5-6 fotos.
+- **Sáb 31/10, casa, 21:30-22:30** (la impresora llega ese día): `PRUEBAS_IMPRESORA.md` y ajuste de parámetros.
+- **Dom 1/11**: 16:30-18:30 Redibujar y estructuras (SMILES); 21:30-23:30 en casa coste real por foto, repaso con Sara y push final.
+- **2-26/11**: solo arreglos tras el uso real de Sara (sin funciones nuevas), instrucciones de 1 página, icono y código de acceso.
 
 ## Riesgos
 1. Flujo iOS → Tiny Print con un paso extra (mitigar: guardar tiras en lote; Bluefy en v2).

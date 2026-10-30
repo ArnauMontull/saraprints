@@ -1,7 +1,7 @@
 <!-- Instrucciones de Claude Code para esta carpeta; las generales están en LIFE_OS/CLAUDE.md -->
 ## Saraprints (`saraprints/`): PWA de apuntes para la impresora térmica de Sara
 Repo git **público** independiente (`ArnauMontull/saraprints`); haz los commits dentro de esta carpeta. Plan completo en
-`docs/PLAN.md`; decisiones en `docs/DECISIONES.md`. Plazo: **27/11/2026** (cumpleaños de Sara, hermana de Arnau, estudiante de Farmacia en la UB).
+`docs/PLAN.md`; decisiones en `docs/DECISIONES.md`. Plazo: **app acabada el dom 1/11/2026 23:59** (pedido el 30/10); regalo el **27/11/2026** (cumpleaños de Sara, hermana de Arnau, estudiante de Farmacia en la UB).
 - **Reglas que no se rompen**: ninguna clave ni código de acceso en el repo (solo variables de entorno; `.env.example` sin
   valores); las fotos de apuntes de Sara van a `muestras/` (ignorada por git); no publiques datos personales de Sara.
   Antes de cada push: `git grep -iE "sk-ant|ACCESS_CODE=.+"` debe salir vacío.
