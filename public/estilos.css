@@ -1,0 +1,15 @@
+/* La interfaz usa Tailwind; aquí solo lo que Tailwind no cubre. El estilo del «papel» está en js/render.js. */
+#escenario {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: max-content; /* que no limite el ancho de las tablas que se giran */
+}
+
+/* Vista previa: cada tira como un trozo de papel, sin suavizar los píxeles */
+.tira {
+  image-rendering: pixelated;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 0.15);
+  max-width: 100%;
+}

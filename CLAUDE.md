@@ -9,8 +9,11 @@ Repo git **público** independiente (`ArnauMontull/saraprints`); haz los commits
   iPhone (manifest, iconos Apple touch, service worker). Una función serverless `/api/procesar` (Vercel) con la API de Claude.
 - **IA**: Haiku 5.5 por defecto, Sonnet 5.5 solo como reintento. Carga la skill `claude-api` antes de escribir la llamada y
   mide el coste real por foto. Los prompts van en ficheros `.md` aparte, no embebidos en el código.
-- **Salida térmica**: ancho de impresión ≈ 384 px (48 mm a 200 dpi; **verificar** con la impresora), 1 bit, tipografía gruesa.
-  Render con KaTeX + mhchem y SmilesDrawer en el cliente; nada de LaTeX en el servidor.
+- **Salida térmica**: ancho de impresión ≈ 384 px (48 mm a 200 dpi; **verificar** con la hoja de prueba), 1 bit, tipografía gruesa.
+  Render en el cliente con MathJax SVG + mhchem y SmilesDrawer (`SvgDrawer`), rasterizado con `<foreignObject>`
+  (KaTeX + html2canvas se descartó: ver `docs/DECISIONES.md`); nada de LaTeX en el servidor.
+- **Código**: `public/` (PWA sin compilar), `api/procesar.js` (Vercel), `prompts/`. Probar con `npm run dev` y `npm test`;
+  despliegue en `docs/DESPLIEGUE.md`. Al tocar `public/`, sube `VERSION` en `public/sw.js`.
 - **iOS**: la PWA no puede usar Bluetooth; entrega PNGs vía `navigator.share`/Fotos y se imprime con Tiny Print.
 - **Arnau**: domina Git y Python; JavaScript web es más flojo, así que explica lo no obvio. UI en castellano.
 - Despliegue (Vercel, variables, límite de gasto en Anthropic) lo lanza Arnau; tú preparas los pasos exactos.

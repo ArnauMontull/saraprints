@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Saraprints</title>
+    <meta name="description" content="Fotos de apuntes a tiras para la impresora térmica" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Saraprints" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="iconos/icono-192.png" />
+    <link rel="apple-touch-icon" href="iconos/apple-touch-icon.png" />
+    <link rel="stylesheet" href="estilos.css" />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="js/mathjax-config.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/smiles-drawer@2.1.7/dist/smiles-drawer.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <div class="mx-auto flex min-h-screen max-w-xl flex-col gap-6 px-4 pb-32 pt-[max(1rem,env(safe-area-inset-top))]">
+      <header class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-3">
+          <img src="iconos/icono-192.png" alt="" class="h-10 w-10 rounded-xl shadow-sm" />
+          <div>
+            <h1 class="text-xl font-bold text-slate-900">Saraprints</h1>
+            <p class="text-sm text-slate-500">Apuntes en tiras para la libreta</p>
+          </div>
+        </div>
+        <div class="flex gap-1">
+          <button id="btn-ayuda" class="rounded-xl p-3 text-slate-600 transition-all duration-200 hover:bg-slate-100" aria-label="Cómo imprimir">
+            <i data-lucide="circle-help"></i>
+          </button>
+          <button id="btn-ajustes" class="rounded-xl p-3 text-slate-600 transition-all duration-200 hover:bg-slate-100" aria-label="Ajustes">
+            <i data-lucide="settings"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- 1. Foto -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <label id="zona-foto" class="flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-slate-300 p-8 text-center transition-all duration-200 hover:bg-slate-50">
+          <i data-lucide="camera" class="h-10 w-10 text-teal-600"></i>
+          <span class="text-lg font-semibold">Hacer o elegir una foto</span>
+          <span class="text-sm text-slate-500">Recórtala antes en Fotos si solo quieres una parte</span>
+          <input id="entrada-foto" type="file" accept="image/*" class="hidden" />
+        </label>
+        <div id="foto-elegida" class="hidden items-center gap-4">
+          <img id="miniatura" alt="Foto elegida" class="h-24 w-24 rounded-xl border border-slate-200 object-cover" />
+          <div class="flex flex-1 flex-col gap-2">
+            <span class="text-sm text-slate-500">Foto lista. Elige qué hacer con ella.</span>
+            <button id="btn-cambiar" class="self-start rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-slate-100">Cambiar foto</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Modo -->
+      <section id="paso-modo" class="grid grid-cols-2 gap-4 opacity-50" aria-disabled="true">
+        <button data-modo="transcribir" class="modo flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:bg-slate-100">
+          <i data-lucide="type" class="h-7 w-7 text-teal-600"></i>
+          <span class="font-semibold">Transcribir</span>
+          <span class="text-sm text-slate-500">Texto limpio con fórmulas y tablas</span>
+        </button>
+        <button data-modo="mejorar" class="modo flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:bg-slate-100">
+          <i data-lucide="sun" class="h-7 w-7 text-teal-600"></i>
+          <span class="font-semibold">Mejorar</span>
+          <span class="text-sm text-slate-500">Blanco y negro, sin sombras</span>
+        </button>
+        <button data-modo="redibujar" class="modo flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:bg-slate-100">
+          <i data-lucide="pen-tool" class="h-7 w-7 text-teal-600"></i>
+          <span class="font-semibold">Redibujar</span>
+          <span class="text-sm text-slate-500">Esquema o gráfico en limpio</span>
+        </button>
+        <button data-modo="tiras" class="modo flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:bg-slate-100">
+          <i data-lucide="columns-3" class="h-7 w-7 text-teal-600"></i>
+          <span class="font-semibold">Tiras</span>
+          <span class="text-sm text-slate-500">Foto grande en trozos para pegar</span>
+        </button>
+      </section>
+
+      <!-- 3. Resultado -->
+      <section id="paso-resultado" class="hidden flex-col gap-6">
+        <div class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 id="titulo-resultado" class="text-lg font-semibold">Resultado</h2>
+            <span id="coste" class="text-xs text-slate-500"></span>
+          </div>
+          <p id="avisos" class="hidden rounded-xl bg-amber-50 p-3 text-sm text-amber-800"></p>
+
+          <div id="ctl-fuente" class="hidden flex-col gap-2">
+            <label for="fuente" class="text-sm font-medium text-slate-600">Texto (puedes corregirlo)</label>
+            <textarea id="fuente" rows="8" class="w-full rounded-xl border border-slate-200 p-3 font-mono text-sm focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/30"></textarea>
+            <button id="btn-actualizar" class="self-start rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-slate-100">
+              Actualizar tira
+            </button>
+          </div>
+
+          <div id="ctl-letra" class="hidden flex-col gap-1">
+            <label for="letra" class="flex justify-between text-sm font-medium text-slate-600">Tamaño de letra <span id="letra-valor"></span></label>
+            <input id="letra" type="range" min="14" max="32" step="1" class="accent-teal-600" />
+          </div>
+
+          <div id="ctl-columnas" class="hidden flex-col gap-1">
+            <label for="columnas" class="flex justify-between text-sm font-medium text-slate-600">Tiras de ancho <span id="columnas-valor"></span></label>
+            <input id="columnas" type="range" min="1" max="4" step="1" value="2" class="accent-teal-600" />
+          </div>
+
+          <div id="ctl-umbral" class="flex flex-col gap-1">
+            <label for="umbral" class="flex justify-between text-sm font-medium text-slate-600">Más claro · más oscuro <span id="umbral-valor"></span></label>
+            <input id="umbral" type="range" min="80" max="230" step="5" class="accent-teal-600" />
+          </div>
+
+          <div id="ctl-opciones" class="hidden flex-wrap gap-4 text-sm">
+            <label class="flex items-center gap-2"><input id="tramado" type="checkbox" class="h-5 w-5 accent-teal-600" /> Tramado (fotos y grises)</label>
+            <label class="flex items-center gap-2"><input id="girar" type="checkbox" class="h-5 w-5 accent-teal-600" /> Girar 90°</label>
+            <label id="ctl-numerar" class="flex items-center gap-2"><input id="numerar" type="checkbox" checked class="h-5 w-5 accent-teal-600" /> Numerar tiras</label>
+          </div>
+
+          <button id="btn-calidad" class="hidden items-center justify-center gap-2 self-start rounded-xl border border-slate-200 px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-slate-100">
+            <i data-lucide="sparkles" class="h-4 w-4"></i> Reintentar con más calidad
+          </button>
+        </div>
+
+        <div class="flex flex-col items-center gap-4 rounded-2xl border border-slate-200 bg-slate-200/60 p-6">
+          <p id="resumen-tiras" class="text-sm text-slate-600"></p>
+          <div id="vista" class="flex w-full flex-col items-center gap-4"></div>
+        </div>
+      </section>
+
+      <p id="error" class="hidden rounded-xl bg-red-50 p-4 text-sm text-red-700" role="alert"></p>
+    </div>
+
+    <!-- Botón fijo de guardar -->
+    <div id="barra-guardar" class="fixed inset-x-0 bottom-0 hidden border-t border-slate-200 bg-white/95 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] backdrop-blur">
+      <div class="mx-auto flex max-w-xl gap-3">
+        <button id="btn-guardar" class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-teal-600 px-6 py-4 text-lg font-semibold text-white shadow-md transition-all duration-200 hover:bg-teal-700">
+          <i data-lucide="share"></i> <span id="texto-guardar">Guardar tiras</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cargando -->
+    <div id="cargando" class="fixed inset-0 z-20 hidden items-center justify-center bg-slate-900/40 p-6 backdrop-blur-sm">
+      <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-md">
+        <i data-lucide="loader-circle" class="h-6 w-6 animate-spin text-teal-600"></i>
+        <span id="texto-cargando" class="font-medium">Procesando…</span>
+      </div>
+    </div>
+
+    <!-- Ajustes -->
+    <dialog id="dlg-ajustes" class="w-[min(28rem,calc(100vw-2rem))] rounded-2xl border border-slate-200 p-0 shadow-md backdrop:bg-slate-900/40">
+      <form method="dialog" class="flex flex-col gap-6 p-6">
+        <h2 class="text-lg font-semibold">Ajustes</h2>
+        <label class="flex flex-col gap-1 text-sm font-medium text-slate-600">
+          Código de acceso
+          <input id="aj-codigo" type="password" autocomplete="off" class="rounded-xl border border-slate-200 p-3 text-base text-slate-900" />
+          <span class="font-normal text-slate-500">Solo hace falta para Transcribir y Redibujar.</span>
+        </label>
+        <div class="grid grid-cols-2 gap-4">
+          <label class="flex flex-col gap-1 text-sm font-medium text-slate-600">
+            Ancho (px)
+            <input id="aj-ancho" type="number" min="200" max="1000" class="rounded-xl border border-slate-200 p-3 text-base text-slate-900" />
+          </label>
+          <label class="flex flex-col gap-1 text-sm font-medium text-slate-600">
+            Píxeles por mm
+            <input id="aj-pxmm" type="number" min="4" max="16" step="0.1" class="rounded-xl border border-slate-200 p-3 text-base text-slate-900" />
+          </label>
+          <label class="col-span-2 flex flex-col gap-1 text-sm font-medium text-slate-600">
+            Largo máximo de cada tira (mm, 0 = sin cortar)
+            <input id="aj-largo" type="number" min="0" max="1000" class="rounded-xl border border-slate-200 p-3 text-base text-slate-900" />
+          </label>
+        </div>
+        <button id="btn-prueba" type="button" class="flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 font-medium transition-all duration-200 hover:bg-slate-100">
+          <i data-lucide="ruler" class="h-4 w-4"></i> Crear hoja de prueba
+        </button>
+        <div class="flex justify-end gap-3">
+          <button value="cancelar" class="rounded-xl px-4 py-2 font-medium text-slate-600 transition-all duration-200 hover:bg-slate-100">Cancelar</button>
+          <button id="btn-guardar-ajustes" value="ok" class="rounded-xl bg-teal-600 px-5 py-2 font-semibold text-white transition-all duration-200 hover:bg-teal-700">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Ayuda -->
+    <dialog id="dlg-ayuda" class="w-[min(28rem,calc(100vw-2rem))] rounded-2xl border border-slate-200 p-0 shadow-md backdrop:bg-slate-900/40">
+      <form method="dialog" class="flex flex-col gap-4 p-6 text-sm text-slate-600">
+        <h2 class="text-lg font-semibold text-slate-900">Cómo imprimir</h2>
+        <ol class="flex list-decimal flex-col gap-2 pl-5">
+          <li>Haz la foto y elige un modo.</li>
+          <li>Pulsa <b class="text-slate-900">Guardar tiras</b> y, en el menú de compartir, «Guardar imágenes» (van a Fotos).</li>
+          <li>Abre <b class="text-slate-900">Tiny Print</b>, elige imprimir imagen y selecciona las tiras en orden.</li>
+          <li>Pega cada tira en la libreta. En el modo Tiras, el número de arriba indica el orden de izquierda a derecha.</li>
+        </ol>
+        <p>La impresora solo saca blanco y negro: si algo sale muy claro o muy oscuro, mueve el control «Más claro · más oscuro».</p>
+        <p>Transcribir y Redibujar usan IA y pueden equivocarse: revisa el texto antes de imprimir.</p>
+        <button value="ok" class="self-end rounded-xl bg-teal-600 px-5 py-2 font-semibold text-white transition-all duration-200 hover:bg-teal-700">Entendido</button>
+      </form>
+    </dialog>
+
+    <div id="escenario" aria-hidden="true"></div>
+  </body>
+</html>
