@@ -23,4 +23,14 @@
   (`fallbacks: "default"`) si sus filtros rechazan la foto (apuntes de fármacos podrían caer en la categoría `bio`).
 - **Tiras**: «57 × 25 mm» del papel es ancho × diámetro del rollo, no etiquetas: el papel es continuo, así que cada
   resultado sale como una tira larga; en Ajustes se puede fijar un largo máximo y se corta por filas blancas.
-- **Pendiente de medir**: coste real por foto (falta desplegar con la clave) y ancho imprimible real (hoja de prueba).
+- **Pendiente de medir**: ancho imprimible real (hoja de prueba).
+
+## 2026-11-01 · Coste real por foto (API real, foto simulada de 1600 × 1200 con texto, química, tabla y gráfica)
+| Llamada | Modelo | Tokens entrada / salida | Tiempo | Coste |
+|---|---|---|---|---|
+| Transcribir | Haiku 5.5 | 3.721 / 1.149 (898 de razonamiento) | 7 s | 0,00095 $ |
+| Redibujar | Haiku 5.5 | ≈3.700 / 3.272 | 14 s | 0,0020 $ |
+| Transcribir con más calidad | Sonnet 5.5 | 3.721 / 290 | 4 s | 0,0103 $ |
+
+Unas 1.000 fotos con Haiku por 1 $; aunque Sara use Sonnet a menudo, un límite de 5 $/mes sobra. Haiku ya sacó bien
+la química (`\ce{}`), la tabla y avisó de lo dudoso; Sonnet además pasó `t1/2` y `ke` a fórmula ($t_{1/2}$, $k_e$).
