@@ -188,8 +188,14 @@ async function generar() {
       return trocear(aUnBit(escalar(foto(), ancho), { umbral, tramado, limpiar: true }), largo);
     case "tiras": {
       const cols = Number($("columnas").value);
-      const piezas = franjas(foto(), cols, ancho).flatMap((f) => trocear(aUnBit(f, { umbral, tramado, limpiar: true }), largo));
-      return $("numerar").checked ? piezas.map((p, i) => numerar(p, i + 1, piezas.length)) : piezas;
+      const columnas = franjas(foto(), cols, ancho).map((f) => trocear(aUnBit(f, { umbral, tramado, limpiar: true }), largo));
+      if (!$("numerar").checked) return columnas.flat();
+      // Una pieza por columna: «2/4» de izquierda a derecha. Columnas cortadas en trozos: letra = columna
+      // (A a la izquierda) y número = trozo de arriba abajo («B2»)
+      const cortadas = columnas.some((c) => c.length > 1);
+      return columnas.flatMap((piezas, i) =>
+        piezas.map((p, j) => numerar(p, cortadas ? `${"ABCD"[i]}${j + 1}` : `${i + 1}/${cols}`)),
+      );
     }
     case "prueba":
       return [await hojaDePrueba(ajustes)];

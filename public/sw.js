@@ -1,6 +1,6 @@
 // Service worker: guarda la app y las librerías del CDN para que abra rápido y sin cobertura.
 // La API (/api/...) nunca se guarda. Al cambiar ficheros de la app, sube VERSION para forzar la actualización.
-const VERSION = "saraprints-v1";
+const VERSION = "saraprints-v2";
 const APP = [
   "./",
   "index.html",

@@ -241,8 +241,8 @@ export function franjas(img, columnas, ancho) {
   return out;
 }
 
-// Banda pequeña encima con «2/5» para saber el orden al pegar
-export function numerar(canvas, n, total) {
+// Banda pequeña encima con la etiqueta («2/5» o «B1») para saber dónde va al pegar
+export function numerar(canvas, etiqueta) {
   const banda = 22;
   const r = lienzo(canvas.width, canvas.height + banda);
   const ctx = r.getContext("2d");
@@ -251,7 +251,7 @@ export function numerar(canvas, n, total) {
   ctx.fillStyle = "#000";
   ctx.font = "bold 18px Arial, sans-serif";
   ctx.textBaseline = "top";
-  ctx.fillText(`${n}/${total}`, 4, 2);
+  ctx.fillText(etiqueta, 4, 2);
   ctx.fillRect(0, banda - 3, r.width, 1);
   ctx.drawImage(canvas, 0, banda);
   return r;

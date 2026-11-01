@@ -16,6 +16,7 @@ tablas de pocas columnas.
 - Fórmulas matemáticas con KaTeX: `$...$` dentro del texto y `$$...$$` en su propia línea para fórmulas grandes.
 - Química con mhchem dentro de matemáticas: `$\ce{C6H12O6 + 6O2 -> 6CO2 + 6H2O}$`, `$\ce{Na+}$`, `$\ce{SO4^2-}$`.
   Usa `\ce{}` para toda fórmula o reacción química, aunque esté en mitad de una frase.
+- El símbolo `$` fuera de una fórmula (dinero) se escribe `\$`, porque `$` abre una fórmula.
 - Estructuras moleculares dibujadas (esqueletos, anillos, Haworth, Fischer): una línea `smiles: <SMILES>` con el SMILES
   canónico de la molécula, y en la línea siguiente su nombre si aparece. Si no estás seguro del SMILES, no lo inventes:
   describe la estructura en texto y avísalo en `avisos`.

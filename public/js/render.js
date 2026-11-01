@@ -248,6 +248,14 @@ export async function fuenteACanvas(fuente, opciones) {
 
 // Quita lo peligroso del SVG de la IA. Se pinta como <img>, que ya no ejecuta scripts, pero mejor no fiarse.
 export function limpiarSvg(svg) {
+  // Solo lo que va de <svg a </svg> (por si la IA lo envuelve en ``` o texto) y con su namespace, sin el cual
+  // el navegador no lo reconoce como imagen
+  const inicio = svg.indexOf("<svg");
+  const fin = svg.lastIndexOf("</svg>");
+  if (inicio >= 0 && fin > inicio) svg = svg.slice(inicio, fin + 6);
+  if (!/^<svg[^>]*\sxmlns="http:\/\/www\.w3\.org\/2000\/svg"/.test(svg)) {
+    svg = svg.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+  }
   const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
   const raiz = doc.documentElement;
   if (raiz.nodeName !== "svg" || doc.querySelector("parsererror")) throw new Error("El dibujo de la IA no es un SVG válido");
