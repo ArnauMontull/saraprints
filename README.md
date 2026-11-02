@@ -51,4 +51,5 @@ Despliegue paso a paso: `docs/DESPLIEGUE.md`.
   consola de Anthropic. Si el código se filtra, se cambia en Vercel y se redepliega.
 - Las fotos de apuntes de muestra van a `muestras/` (ignorada por git). Las fotos no se guardan en ningún sitio.
 
-Docs: [[DECISIONES (saraprints/docs)]], [[PLAN (saraprints/docs)]], [[PRUEBAS_IMPRESORA]].
+Docs: [[DECISIONES (saraprints/docs)]], [[PLAN (saraprints/docs)]], [[PRUEBAS_IMPRESORA]], [[DESPLIEGUE]].
+Prompts: [[transcribir]], [[redibujar]].
