@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Saraprints Estudio</title>
+    <meta name="description" content="Tests, flashcards y repaso de Farmacia a partir de tus apuntes" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Estudio" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="iconos/icono-192.png" />
+    <link rel="apple-touch-icon" href="iconos/apple-touch-icon.png" />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/smiles-drawer@2.1.7/dist/smiles-drawer.min.js"></script>
+    <style>
+      html { -webkit-tap-highlight-color: transparent; }
+      .feed { height: 100dvh; overflow-y: scroll; scroll-snap-type: y mandatory; overscroll-behavior: contain; }
+      .clip { height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always; }
+      .linea { opacity: 0; transform: translateY(12px); transition: opacity .45s ease, transform .45s ease; }
+      .linea.on { opacity: 1; transform: none; }
+      .smiles svg { width: 100%; height: auto; max-height: 220px; }
+      @media (prefers-reduced-motion: reduce) { .linea { transition: none; opacity: 1; transform: none; } }
+    </style>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <main id="app" class="mx-auto flex min-h-screen max-w-xl flex-col gap-6 px-4 pb-28 pt-[max(1rem,env(safe-area-inset-top))]">
+      <p class="pt-24 text-center text-slate-500">Cargando tus preguntas…</p>
+    </main>
+
+    <nav id="nav" class="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
+      <div class="mx-auto grid max-w-xl grid-cols-5 text-xs font-medium text-slate-500">
+        <a href="#inicio" data-tab="inicio" class="flex flex-col items-center gap-1 py-3"><i data-lucide="house"></i>Inicio</a>
+        <a href="#test" data-tab="test" class="flex flex-col items-center gap-1 py-3"><i data-lucide="list-checks"></i>Test</a>
+        <a href="#tarjetas" data-tab="tarjetas" class="flex flex-col items-center gap-1 py-3"><i data-lucide="layers"></i>Tarjetas</a>
+        <a href="#esquemas" data-tab="esquemas" class="flex flex-col items-center gap-1 py-3"><i data-lucide="book-open"></i>Esquemas</a>
+        <a href="#fallos" data-tab="fallos" class="flex flex-col items-center gap-1 py-3"><i data-lucide="target"></i>Fallos</a>
+      </div>
+    </nav>
+  </body>
+</html>
